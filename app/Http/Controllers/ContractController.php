@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Estimate;
 use App\Models\Contract;
+use App\Models\ContractModel;
 use App\Models\Referral;
 use App\Models\Package;
 use App\Models\PartyTime;
@@ -294,7 +295,12 @@ class ContractController extends Controller
 
         $contracts = $this->repository->with('package')->get();
         
+        $contract_id = 1;
+        $contrato_padrao = ContractModel::find($contract_id);
+        
+        
         return view('pages.Contracts.template', [
+            'contract_model' => $contrato_padrao,
             'contracts' => $contracts,
             'referrals' => $referrals,
             'observations' => $observations,
@@ -308,6 +314,32 @@ class ContractController extends Controller
 
         return view('pages.Contracts.generated', [
             'contract' => $contract,
+        ]);
+    }
+    
+    public function model(Request $request) {
+        
+        $contract_id = 1;
+        
+        if($_POST):
+            
+            $conteudo = $request->conteudo;
+            $conteudo = str_replace("'", "", $conteudo);
+            
+            $contract = ContractModel::find($contract_id);
+            $contract->conteudo = $conteudo;
+            $contract->save();
+            
+            return redirect()->route('contracts.model');
+            
+        endif;
+ 
+        
+        $contract = ContractModel::find($contract_id);
+        
+        
+        return view('pages.Contracts.model', [
+            'contract' => $contract
         ]);
     }
 }
