@@ -3,7 +3,7 @@
 @section('title', "Contrato")
 
 @section('content_header')
-    <h1>Gerar Contrato</h1>
+<h1>Salvar modelo de contrato padrão</h1>
 @stop
 
 
@@ -21,25 +21,14 @@
             
             
 
-            <form action="{{route('contracts.generate')}}" class="form" method="POST">
+            <form action="{{route('contracts.model')}}" class="form" method="POST">
                 @csrf
-                <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="gender">Contrato:</label>
-                        <select class="custom-select rounded-0" id="contract" name="contract" required>
-                            @foreach($contracts as $contract)
-                            <option value='{{$contract->id}}'>{{$contract->name}} ({{$contract->package->name}} - {{$contract->date}})</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                
-                <hr>
 
                 <div class="callout callout-info">
                   <h5>Variáveis do contrato</h5>
 
-                  <p>Selecione o contrato e utilize as varáveis abaixo para puxar os dados do contrato selecionado</p>
+                  <p>Edite o modelo de contrato que será utilizado como padrão na geração do contrato dos clientes.<br> 
+                      Uilize as variáveis abaixo para serem substituídas pelos dados do contrato relacionado ao cliente.</p>
                   
                   <p>
                       [!CODIGO!] -  
@@ -61,8 +50,8 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label>Modelo:</label>
-                            <textarea class="form-control" name="model" id="summernote" rows="5">{!!$contract_model->conteudo!!}</textarea>
+                            <label>Contrato padrao:</label>
+                            <textarea class="form-control" name="conteudo" id="summernote" rows="5">{!!$contract->conteudo!!}</textarea>
 
                         </div>
                     </div>
@@ -70,7 +59,7 @@
 
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Gerar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
                 </div>
             </form>
 
