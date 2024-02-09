@@ -169,6 +169,8 @@ Route::get('/admin/estimates/{id}/contract', 'EstimateController@contract')->nam
 
 Route::get('/admin/contracts', 'ContractController@index')->name('contracts.index');
 Route::get('/admin/contracts/calendar', 'ContractController@index_calendar')->name('contracts.calendar');
+Route::get('/admin/contracts/model', 'ContractController@model')->name('contracts.model');
+Route::post('/admin/contracts/model', 'ContractController@model')->name('contracts.model');
 Route::get('/admin/contracts/generate', 'ContractController@generate')->name('contracts.generate');
 Route::post('/admin/contracts/generate', 'ContractController@generate')->name('contracts.generate');
 Route::get('/admin/contracts/{id}/generated', 'ContractController@generated')->name('contracts.generated');
